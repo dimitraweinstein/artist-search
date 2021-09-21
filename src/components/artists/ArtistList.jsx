@@ -6,11 +6,7 @@ const ArtistList = ({ artists }) => (
   <ul>
     {artists.map((artist) => (
       <li key={artist.id}>
-        <Artist
-          name={artist.name}
-          country={artist.country}
-          genre={artist.genre}
-        />
+        <Artist {...artist} />
       </li>
     ))}
   </ul>
