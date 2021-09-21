@@ -6,6 +6,7 @@ const Artist = ({ name, country, genre }) => (
     <p>
       {name} - {genre}
     </p>
+    {/* Link to Albums list Here */}
     <figcaption>
       {country}
     </figcaption>
