@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Search = ({ query, onQuery }) => (
-  <>
-    <label htmlFor="query">Search: {' '}</label>
+const Search = ({ searchTerm, onSearch }) => (
+  <label htmlFor="query">Search:{' '}
     <input
       id="query"
       type="text"
-      value={query}
-      onChange={onQuery}
+      name="searchTerm"
+      value={searchTerm}
+      onChange={onSearch}
     />
-  </>
+  </label>
 );
 
 Search.propTypes = {
-  query: PropTypes.string.isRequired,
-  onQuery: PropTypes.func.isRequired
+  searchTerm: PropTypes.string.isRequired,
+  onSearch: PropTypes.func.isRequired
 };
 
 export default Search;

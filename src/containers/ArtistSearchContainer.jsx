@@ -8,14 +8,10 @@ import ArtistList from '../components/artists/ArtistList';
 export const ArtistSearch = () => {
   const [loading, setLoading] = useState(true);
   const [artists, setArtists] = useState([]);
-  const [searchedArtists, setSearchedArtists] = useState([]);
-  const [filteredMusic, setFilteredMusic] = useState([]);
-  const [query, setQuery] = useState('');
+  // const [searchedArtists, setSearchedArtists] = useState([]);
+  const [filteredArtists, setFilteredArtists] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   // const { id } = useParams();
-
-  // let artistDataPromise = [];
-  // let filteredMusicDataPromise = null;
-  // let searchedArtistDataPromise = null;
 
   useEffect(() => {
     const loadArtists = async () => {
@@ -26,29 +22,16 @@ export const ArtistSearch = () => {
     loadArtists();
   }, []);
 
-  // useEffect(() => {
-  //   filteredMusicDataPromise = getArtistMusicById();
-  // }, []);
-
-  // useEffect(() => {
-  //   searchedArtistDataPromise = getArtistsByQuery(query);
-  // }, [query]);
-  
-  Promise.all([
-    // artistDataPromise,
-    // filteredMusicDataPromise,
-    // searchedArtistDataPromise,
-  ])
-    .then(() => ({
-      setArtists,
-      setSearchedArtists,
-      setFilteredMusic,
-    }))
-    .finally(() => setLoading(false));
-
+  useEffect(() => {
+    setFilteredArtists(
+      artists.filter((artist) => 
+        artist.name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+      )
+    );
+  }, [searchTerm]);
     
-  const handleQuery = ({ target }) => {
-    setQuery(target.value);
+  const handleSearch = ({ target }) => {
+    setSearchTerm(target.value);
   };
 
   if(loading) return <img
@@ -59,14 +42,13 @@ export const ArtistSearch = () => {
   return (
     <>
       <Search
-        query={query}
-        onQuery={handleQuery}
+        searchTerm={searchTerm}
+        onSearch={handleSearch}
       />
       <ArtistList
         artists={artists}
-        query={query}
-        searchedArtists={searchedArtists}
-        filteredMusic={filteredMusic}
+        searchTerm={searchTerm}
+        filteredArtists={filteredArtists}
       />
     </>
   );

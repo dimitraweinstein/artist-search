@@ -1,4 +1,3 @@
-
 export const getAllArtists = async () => {
   try {
     const res = await fetch(
@@ -25,12 +24,7 @@ export const getArtistsByQuery = async (artistQuery) => {
 
     console.log(searchedArtists, 'the searched artists');
   
-    return searchedArtists.map((artist) => ({
-      id: artist.id,
-      name: artist.name,
-      description: artist.disambiguation,
-      country: artist.area.name,
-    }));
+    return searchedArtists.artists;
   } catch (error) {
     console.error((`Error getting artist: ${error.message}`));
     return [];
