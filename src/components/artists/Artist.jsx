@@ -1,24 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Artist = ({ name, country, description, genre }) => (
+const Artist = ({ name, disambiguation }) => (
   <figure>
     <p>
-      {name} - {description}
+      {name} - {disambiguation}
     </p>
-    <p> {genre}</p>
     {/* Link to Albums list Here */}
-    <figcaption>
-      {country}
-    </figcaption>
   </figure>
 );
 
 Artist.propTypes = {
   name: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  country: PropTypes.string.isRequired,
+  disambiguation: PropTypes.string.isRequired,
 };
 
 export default Artist;

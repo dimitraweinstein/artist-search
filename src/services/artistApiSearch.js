@@ -4,15 +4,11 @@ export const getAllArtists = async () => {
     const res = await fetch(
       'https://musicbrainz.org/ws/2/artist?query=?&fmt=json&limit=25'
     );
-    const allArtists = await res.json();
+    const fetchedArtists = await res.json();
+      
+    console.log(fetchedArtists, 'all the artists');
 
-    return allArtists.map((artist) => ({
-      id: artist.id,
-      name: artist.name,
-      description: artist.disambiguation,
-      genre: artist.tags[ 0 ].name,
-      country: artist.area.name,
-    }));
+    return fetchedArtists.artists;
   } catch (error) {
     console.error((`Error getting artist: ${error.message}`));
     return [];
@@ -25,9 +21,11 @@ export const getArtistsByQuery = async (artistQuery) => {
       // eslint-disable-next-line max-len
       `http://musicbrainz.org/ws/2/artist?query=${artistQuery}&fmt=json&limit=25`
     );
-    const artists = await res.json();
+    const searchedArtists = await res.json();
+
+    console.log(searchedArtists, 'the searched artists');
   
-    return artists.map((artist) => ({
+    return searchedArtists.map((artist) => ({
       id: artist.id,
       name: artist.name,
       description: artist.disambiguation,
@@ -39,15 +37,16 @@ export const getArtistsByQuery = async (artistQuery) => {
   }
 };
 
-export const getArtistMusicById = async (artistId) => {
+export const getArtistMusicById = async (req) => {
+  const { id } = req.params;
   try {
     const res = await fetch(
-      `http://musicbrainz.org/ws/2/release?artist=${artistId}&fmt=json`
+      `http://musicbrainz.org/ws/2/release?artist=${id}&fmt=json`
     );
     const albums = await res.json();
 
     const res2 = await fetch(
-      `https://coverartarchive.org/release/${releaseId}/front`
+      `https://coverartarchive.org/release/${id}/front`
     );
     const coverArt = await res2.json();
 
