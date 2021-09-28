@@ -17,7 +17,7 @@ ArtistList.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      disambiguation: PropTypes.string.isRequired,
+      disambiguation: PropTypes.string,
     }).isRequired
   ),
 };

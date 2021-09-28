@@ -12,7 +12,7 @@ const Artist = ({ name, disambiguation }) => (
 
 Artist.propTypes = {
   name: PropTypes.string.isRequired,
-  disambiguation: PropTypes.string.isRequired,
+  disambiguation: PropTypes.string,
 };
 
 export default Artist;
