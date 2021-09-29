@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-// eslint-disable-next-line max-len
-import { getAllArtists, getArtistsByQuery, getArtistMusicById } from '../services/artistApiSearch';
+import { getAllArtists } from '../services/artistApiSearch';
 import Search from '../components/SearchControls';
 import ArtistList from '../components/artists/ArtistList';
-// import { useParams } from 'react-router-dom';
+
+
 
 export const ArtistSearch = () => {
   const [loading, setLoading] = useState(true);
@@ -11,7 +11,7 @@ export const ArtistSearch = () => {
   // const [searchedArtists, setSearchedArtists] = useState([]);
   const [filteredArtists, setFilteredArtists] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  // const { id } = useParams();
+
 
   useEffect(() => {
     const loadArtists = async () => {
@@ -21,7 +21,7 @@ export const ArtistSearch = () => {
     };
     loadArtists();
   }, []);
-
+  
   useEffect(() => {
     setFilteredArtists(
       artists.filter((artist) => 

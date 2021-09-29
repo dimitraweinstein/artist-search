@@ -1,7 +1,7 @@
 export const getAllArtists = async () => {
   try {
     const res = await fetch(
-      'https://musicbrainz.org/ws/2/artist?query=?&fmt=json&limit=25'
+      'https://musicbrainz.org/ws/2/artist?query=?&fmt=json&limit=?&offset=?'
     );
     const fetchedArtists = await res.json();
       
