@@ -1,33 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { getAllArtists } from '../services/artistApiSearch';
+import { getArtist } from '../services/artistApiSearch';
 import Search from '../components/SearchControls';
 import ArtistList from '../components/artists/ArtistList';
-
-
 
 export const ArtistSearch = () => {
   const [loading, setLoading] = useState(true);
   const [artists, setArtists] = useState([]);
-  // const [searchedArtists, setSearchedArtists] = useState([]);
-  const [filteredArtists, setFilteredArtists] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
-
   useEffect(() => {
+    if (!searchTerm) {
+      setLoading(false);
+      return;
+    }
     const loadArtists = async () => {
-      const artistsFromApi = await getAllArtists();
+      const artistsFromApi = await getArtist(searchTerm);
       setArtists(artistsFromApi);
       setLoading(false);
     };
     loadArtists();
-  }, []);
-  
-  useEffect(() => {
-    setFilteredArtists(
-      artists.filter((artist) => 
-        artist.name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
-      )
-    );
   }, [searchTerm]);
     
   const handleSearch = ({ target }) => {
@@ -48,7 +39,7 @@ export const ArtistSearch = () => {
       <ArtistList
         artists={artists}
         searchTerm={searchTerm}
-        filteredArtists={filteredArtists}
+        // filteredArtists={filteredArtists}
       />
     </>
   );
