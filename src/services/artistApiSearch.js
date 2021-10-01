@@ -1,9 +1,9 @@
-export const getArtist = async (artist) => {
+export const getArtist = async (artist, page) => {
   try {
-    // const offset = (page - 1) * 26;
+    const offset = (page - 1) * 26;
     const res = await fetch(
       // eslint-disable-next-line max-len
-      `https://musicbrainz.org/ws/2/artist?query=${artist}&fmt=json&limit=25`,
+      `https://musicbrainz.org/ws/2/artist?query=${artist}&fmt=json&inc=1&offset=${offset}`,
       {
         method: 'GET'
       }
@@ -44,30 +44,32 @@ export const getArtistById = async (id) => {
   }
 };
 
-export const getAlbums = async (req) => {
-  const { id } = req.params;
+export const getAlbums = async (id) => {
   try {
     const res = await fetch(
-      `http://musicbrainz.org/ws/2/release?artist=${id}&fmt=json`
+      `http://musicbrainz.org/ws/2/release?artist=${id}&fmt=json`,
+      {
+        method: 'GET'
+      }
     );
-    const albums = await res.json();
-
-    const res2 = await fetch(
-      `https://coverartarchive.org/release/${id}/front`
-    );
-    const coverArt = await res2.json();
-
-    albums.map((album) => ({
+    const albumsArray = await res.json();
+    albumsArray.map((album) => ({
       id: album.releases.id,
       title: album.releases.title,
       releaseDate: album.releases.date,
-      coverArt: coverArt.map((cover) => ({
-        id: cover.releases.id,
-      }))
+      // coverArt: coverArt.map((cover) => ({
+      //   id: cover.releases.id,
+      // }))
     }));
-  
   } catch (error) {
     console.error((`Error getting artist: ${error.message}`));
     return [];
   }
 };
+
+
+// const res2 = await fetch(
+//       `https://coverartarchive.org/release/${id}/front`
+//     );
+//     const coverArt = await res2.json();
+
