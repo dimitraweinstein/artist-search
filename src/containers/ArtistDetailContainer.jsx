@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import Artist from '../components/artists/Artist';
+import ArtistDetails from '../components/artists/ArtistDetails';
 import { getArtistById } from '../services/artistApiSearch';
 
 export const ArtistDetail = () => {
@@ -24,7 +24,7 @@ export const ArtistDetail = () => {
   
   return (
     <>
-      <Artist
+      <ArtistDetails
         {...artist}
       />
       <Link to="/">
