@@ -22,7 +22,6 @@ const artistsProp = PropTypes.arrayOf(
   PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string,
-    type: PropTypes.string,
     description: PropTypes.string,
   })
 ).isRequired;
