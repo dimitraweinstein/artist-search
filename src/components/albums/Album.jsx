@@ -12,7 +12,7 @@ const Album = (release) => {
 Album.propTypes = {
   release: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    releaseDate: PropTypes.string.isRequired
+    releaseDate: PropTypes.string
   }),
   artist: PropTypes.string
 };

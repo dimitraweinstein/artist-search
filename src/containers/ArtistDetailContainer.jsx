@@ -31,20 +31,9 @@ export const ArtistDetail = () => {
         {...artist}
         {...releases}
       />
-      {/* <ul>
-        <li>
-          <AlbumsList
-            {...releases}
-          />
-        </li>
-      </ul> */}
-      <ul>
-        <li>
-          <Album
-            {...releases}
-          />
-        </li>
-      </ul>
+      <AlbumsList
+        {...releases}
+      />
       <Link to="/">
         <button>Home</button>
       </Link>
