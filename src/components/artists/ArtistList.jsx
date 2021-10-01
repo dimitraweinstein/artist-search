@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Artist from './Artist';
 
@@ -8,7 +9,9 @@ const ArtistList = ({ artists }) => {
     <ul>
       {artists.map((artist) => (
         <li key={artist.id} style={{ listStyleType: 'none' }}>
-          <Artist {...artist} />
+          <Link to={`/${artist.id}`}>
+            <Artist {...artist} />
+          </Link>
         </li>
       ))}
     </ul>

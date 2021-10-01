@@ -24,7 +24,27 @@ export const getArtist = async (artist) => {
   }
 };
 
-export const getArtistMusicById = async (req) => {
+export const getArtistById = async (id) => {
+  try {
+    const res = await fetch(`http://musicbrainz.org/ws/2/artist/${id}?fmt=json`,
+      {
+        method: 'GET'
+      });
+    const artist = await res.json();
+    const artistObj = {
+      id: artist.id,
+      type: artist.type,
+      name: artist.name,
+      description: artist.disambiguation
+    };
+    return artistObj;
+  } catch (error) {
+    console.error((`Error getting artist: ${error.message}`));
+    return {};
+  }
+};
+
+export const getAlbums = async (req) => {
   const { id } = req.params;
   try {
     const res = await fetch(
