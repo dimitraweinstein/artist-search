@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ArtistDetails from '../components/artists/ArtistDetails';
-import { getArtistById, getAlbums } from '../services/artistApiSearch';
+import {
+  getArtistById,
+  getAlbums,
+} from '../services/artistApiSearch';
 import AlbumsList from '../components/albums/AlbumsList';
 
 export const ArtistDetail = () => {
   const [loading, setLoading] = useState(true);
   const [artist, setArtist] = useState({});
-  const [releases, setReleases] = useState([]);
+  const [albums, setAlbums] = useState([]);
   const { id } = useParams();
   
   useEffect(() => {
     getArtistById(id)
       .then(artistObj => setArtist(artistObj))
       .then(() => getAlbums(id))
-      .then(albumsArray => setReleases(albumsArray))
+      .then(albumsArray => setAlbums(albumsArray))
       .then(() => setLoading(false));
   }, []);
 
@@ -27,10 +30,10 @@ export const ArtistDetail = () => {
     <>
       <ArtistDetails
         {...artist}
-        {...releases}
+        {...albums}
       />
       <AlbumsList
-        {...releases}
+        albums={albums}
       />
       <Link to="/">
         <button>Home</button>

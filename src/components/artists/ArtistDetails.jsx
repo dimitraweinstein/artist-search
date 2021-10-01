@@ -23,6 +23,7 @@ ArtistDetails.propTypes = {
   release: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
+      image: PropTypes.image,
       title: PropTypes.string.isRequired,
       date: PropTypes.string.isRequired
     }).isRequired

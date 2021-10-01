@@ -2,14 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Album from './Album';
 
-const AlbumsList = ({ releases }) => {
+const AlbumsList = ({ albums }) => {
+  console.log(albums, 'the release');
   return (
     <>
       {/* div for pagination here */}
       <ul>
-        {releases.map((release) => (
-          <li key={release.id}>
-            <Album {...release} />
+        {albums.map((album) => (
+          <li key={album.id}>
+            <Album {...album} />
           </li>
         ))}
       </ul>
@@ -19,9 +20,10 @@ const AlbumsList = ({ releases }) => {
 
 
 AlbumsList.propTypes = {
-  releases: PropTypes.arrayOf(
+  albums: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
+      image: PropTypes.image,
       title: PropTypes.string.isRequired,
       releaseDate: PropTypes.string
     })
