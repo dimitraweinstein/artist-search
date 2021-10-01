@@ -1,53 +1,59 @@
-
-export const getAllArtists = async () => {
+export const getArtist = async (artist) => {
   try {
-    const res = await fetch(
-      'https://musicbrainz.org/ws/2/artist?query=?&fmt=json&limit=25'
-    );
-    const allArtists = await res.json();
-
-    return allArtists.map((artist) => ({
-      id: artist.id,
-      name: artist.name,
-      description: artist.disambiguation,
-      genre: artist.tags[ 0 ].name,
-      country: artist.area.name,
-    }));
-  } catch (error) {
-    console.error((`Error getting artist: ${error.message}`));
-    return [];
-  }
-};
-
-export const getArtistsByQuery = async (artistQuery) => {
-  try {
+    // const offset = (page - 1) * 26;
     const res = await fetch(
       // eslint-disable-next-line max-len
-      `http://musicbrainz.org/ws/2/artist?query=${artistQuery}&fmt=json&limit=25`
+      `https://musicbrainz.org/ws/2/artist?query=${artist}&fmt=json&limit=25`,
+      {
+        method: 'GET'
+      }
     );
-    const artists = await res.json();
-  
-    return artists.map((artist) => ({
+    const json = await res.json();
+    console.log(json, 'the json');
+    const artistsArray = json.artists.map((artist) => ({
       id: artist.id,
+      type: artist.type,
       name: artist.name,
-      description: artist.disambiguation,
-      country: artist.area.name,
+      description: artist.disambiguation
     }));
+    console.log(artistsArray, 'artists');
+    return artistsArray;
   } catch (error) {
     console.error((`Error getting artist: ${error.message}`));
     return [];
   }
 };
 
-export const getArtistMusicById = async (artistId) => {
+export const getArtistById = async (id) => {
+  try {
+    const res = await fetch(`http://musicbrainz.org/ws/2/artist/${id}?fmt=json`,
+      {
+        method: 'GET'
+      });
+    const artist = await res.json();
+    const artistObj = {
+      id: artist.id,
+      type: artist.type,
+      name: artist.name,
+      description: artist.disambiguation
+    };
+    return artistObj;
+  } catch (error) {
+    console.error((`Error getting artist: ${error.message}`));
+    return {};
+  }
+};
+
+export const getAlbums = async (req) => {
+  const { id } = req.params;
   try {
     const res = await fetch(
-      `http://musicbrainz.org/ws/2/release?artist=${artistId}&fmt=json`
+      `http://musicbrainz.org/ws/2/release?artist=${id}&fmt=json`
     );
     const albums = await res.json();
 
     const res2 = await fetch(
-      `https://coverartarchive.org/release/${releaseId}/front`
+      `https://coverartarchive.org/release/${id}/front`
     );
     const coverArt = await res2.json();
 
