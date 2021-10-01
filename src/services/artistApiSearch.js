@@ -52,15 +52,17 @@ export const getAlbums = async (id) => {
         method: 'GET'
       }
     );
-    const albumsArray = await res.json();
-    albumsArray.map((album) => ({
-      id: album.releases.id,
-      title: album.releases.title,
-      releaseDate: album.releases.date,
+    const json = await res.json();
+    const albumsArray = json.releases.map((release) => ({
+      id: release.id,
+      title: release.title,
+      releaseDate: release.date,
       // coverArt: coverArt.map((cover) => ({
       //   id: cover.releases.id,
       // }))
     }));
+    console.log(albumsArray, 'albums');
+    return albumsArray;
   } catch (error) {
     console.error((`Error getting artist: ${error.message}`));
     return [];
