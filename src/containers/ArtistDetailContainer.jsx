@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ArtistDetails from '../components/artists/ArtistDetails';
-import Album from '../components/albums/Album';
 import { getArtistById, getAlbums } from '../services/artistApiSearch';
 import AlbumsList from '../components/albums/AlbumsList';
 
@@ -16,7 +15,6 @@ export const ArtistDetail = () => {
       .then(artistObj => setArtist(artistObj))
       .then(() => getAlbums(id))
       .then(albumsArray => setReleases(albumsArray))
-    // console.log(albums, 'the albums2')
       .then(() => setLoading(false));
   }, []);
 

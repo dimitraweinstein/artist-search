@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Album = (release) => {
-  const { title, releaseDate } = release;
+  const { title, date } = release;
   return (
     <p>
-      {title} - {releaseDate}
+      {title} - {date}
     </p>);
 };
 
 Album.propTypes = {
   release: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    releaseDate: PropTypes.string
+    date: PropTypes.string
   }),
   artist: PropTypes.string
 };

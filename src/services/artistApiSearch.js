@@ -53,14 +53,6 @@ export const getAlbums = async (id) => {
       }
     );
     const json = await res.json();
-    // const albumsArray = json.releases.map((release) => ({
-    //   id: release.id,
-    //   title: release.title,
-    //   releaseDate: release.date,
-    //   // coverArt: coverArt.map((cover) => ({
-    //   //   id: cover.releases.id,
-    //   // }))
-    // }));
     console.log(json, 'albums');
     return json;
   } catch (error) {

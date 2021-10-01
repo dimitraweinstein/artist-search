@@ -24,7 +24,7 @@ ArtistDetails.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      releaseDate: PropTypes.string.isRequired
+      date: PropTypes.string.isRequired
     }).isRequired
   )
 };
