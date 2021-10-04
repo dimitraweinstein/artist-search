@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Search from '../components/SearchControls';
 import ArtistList from '../components/artists/ArtistList';
 import { getArtist } from '../services/artistApiSearch';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 
 export const ArtistSearch = () => {
   let { thePage } = useParams();

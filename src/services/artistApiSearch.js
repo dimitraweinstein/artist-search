@@ -3,7 +3,7 @@ export const getArtist = async (artist, page) => {
     const offset = (page - 1) * 26;
     const res = await fetch(
       // eslint-disable-next-line max-len
-      `https://musicbrainz.org/ws/2/artist?query=${artist}&fmt=json&inc=5&offset=${offset}`,
+      `https://musicbrainz.org/ws/2/artist?query=${artist}&fmt=json&inc=25&offset=${offset}`,
       {
         method: 'GET'
       }
@@ -86,5 +86,25 @@ export const getCoverArt = async (id) => {
     console.error(`Error getting cover art: ${error.message}`);
     // eslint-disable-next-line max-len
     return 'http://www.cloonam.com/static/music/Cant%20Take%20My%20Eyes%20Off%20You%20/Unknown%20album/art.jpg';
+  }
+};
+
+export const getRecordings = async (id) => {
+  try {
+    const res = await fetch(
+      `https://musicbrainz.org/ws/2/recording?release=${id}&fmt=json`,
+      {
+        method: 'GET'
+      }
+    );
+    const json = res.json();
+    const songlistArray = json.recordings.map((recording) => ({
+      id: recording.id,
+      title: recording.title
+    }));
+    console.log(songlistArray, 'songlist');
+    return songlistArray;
+  } catch (error) {
+    console.error(`Error getting songlist: ${error.message}`);
   }
 };
