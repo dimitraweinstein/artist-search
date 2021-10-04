@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ArtistDetails from '../components/artists/ArtistDetails';
-import { getArtistById } from '../services/artistApiSearch';
+import {
+  getArtistById,
+  getAlbums,
+} from '../services/artistApiSearch';
+import AlbumsList from '../components/albums/AlbumsList';
 
 export const ArtistDetail = () => {
   const [loading, setLoading] = useState(true);
   const [artist, setArtist] = useState({});
+  const [albums, setAlbums] = useState([]);
   const { id } = useParams();
   
-  useEffect(() => (
+  useEffect(() => {
     getArtistById(id)
-      .then((artist) => {
-        setArtist(artist);
-        console.log(artist);
-      })
-      .finally(() => setLoading(false))
-  ), []);
+      .then(artistObj => setArtist(artistObj))
+      .then(() => getAlbums(id))
+      .then(albumsArray => setAlbums(albumsArray))
+      .then(() => setLoading(false));
+  }, []);
 
   if(loading) return <img
     // eslint-disable-next-line max-len
@@ -26,6 +30,10 @@ export const ArtistDetail = () => {
     <>
       <ArtistDetails
         {...artist}
+        {...albums}
+      />
+      <AlbumsList
+        albums={albums}
       />
       <Link to="/">
         <button>Home</button>

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ArtistDetails = ({ name, type, description, albums }) => (
+
+const ArtistDetails = ({ name, type, description }) => (
   <figure>
     <p>
       {name}
@@ -12,12 +13,6 @@ const ArtistDetails = ({ name, type, description, albums }) => (
     <p>
       {description}
     </p>
-    <ul>
-      {albums.map((album) => (
-        <li key={album.releases.id}>
-          
-        </li>))}
-    </ul>
   </figure>
 );
 
@@ -25,11 +20,12 @@ ArtistDetails.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string,
   description: PropTypes.string,
-  albums: PropTypes.arrayOf(
+  release: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
+      image: PropTypes.image,
       title: PropTypes.string.isRequired,
-      releaseDate: PropTypes.string.isRequired
+      date: PropTypes.string.isRequired
     }).isRequired
   )
 };
